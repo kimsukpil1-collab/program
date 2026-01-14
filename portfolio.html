@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>PAGE EDITOR - 샘플 포트폴리오</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Noto+Sans+KR:wght@300;400;900&family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --primary: #667eea; 
+            --secondary: #764ba2; 
+            --bg: #0a0a0f; 
+        }
+        body { background: var(--bg); color: #fff; margin: 0; font-family: 'Noto Sans KR', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* 네비게이션 */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 80px; background: rgba(10,10,15,0.95); position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary); }
+        .logo { 
+            font-family: 'Cinzel', serif; font-size: 2.5rem; font-weight: 900; text-decoration: none; 
+            background: linear-gradient(to right, #667eea, #a78bfa, #764ba2, #a78bfa, #667eea); 
+            background-size: 200% auto; 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            animation: logo-shine 3s linear infinite; 
+        }
+        @keyframes logo-shine { to { background-position: 200% center; } }
+        
+        nav ul { list-style: none; display: flex; gap: 20px; align-items: center; margin: 0; padding: 0; }
+        .dropdown { position: relative; }
+        .dropbtn { 
+            padding: 10px 20px; border: 2px solid var(--primary); border-radius: 5px; 
+            color: #fff; font-weight: 900; background: transparent; cursor: pointer; 
+            font-size: 1rem; outline: none; 
+        }
+        .dropdown-content { 
+            display: none; position: absolute; background-color: #1a1a24; 
+            min-width: 140px; box-shadow: 0px 8px 16px rgba(102,126,234,0.3); 
+            z-index: 1001; border: 1px solid var(--primary); 
+            top: 50px; left: 0; border-radius: 5px; 
+        }
+        .dropdown.active .dropdown-content { display: block; }
+        .dropdown-content a { 
+            color: #888; padding: 12px 16px; text-decoration: none; 
+            display: block; font-size: 14px; font-weight: bold; 
+        }
+        .dropdown-content a:hover { color: #fff; background: #2a2a34; }
+        .call-btn { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            color: #fff !important; padding: 10px 20px; border-radius: 5px; 
+            font-weight: 900; text-decoration: none; border: 1px solid #fff; 
+        }
+
+        /* 섹션 2: 시안 갤러리 */
+        #lineup { padding: 80px 0; text-align: center; }
+        .lineup-title { 
+            font-family: 'Cinzel', serif; 
+            font-size: 2.5rem; 
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 60px; 
+            letter-spacing: 5px;
+        }
+        .lineup-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            align-items: start; 
+        }
+        .lineup-card { 
+            background: #0f0f15; 
+            border: 1px solid rgba(102, 126, 234, 0.3); 
+            border-radius: 15px; 
+            overflow: hidden; 
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .lineup-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .lineup-grid img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            filter: brightness(1.05); 
+        }
+
+        /* 섹션 3: 철학 */
+        .lab-section { 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 85%); 
+            text-align: center; 
+        }
+        .intro-line { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            font-size: clamp(1.5rem, 4vw, 3rem); 
+            font-weight: 900; 
+            color: #444; 
+            margin-bottom: 20px; 
+            display: block; 
+            opacity: 0.8;
+        }
+        .main-line { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            font-size: clamp(1.8rem, 6vw, 4.5rem); 
+            font-weight: 900; 
+            color: #ffffff; 
+            text-shadow: 0px 0px 20px rgba(255,255,255,0.2), 2px 6px 15px rgba(0,0,0,1);
+            display: block; 
+            margin-bottom: 50px;
+        }
+        .shining-text { 
+            background: linear-gradient(110deg, #667eea 33%, #a78bfa 50%, #764ba2 66%); 
+            background-size: 200% auto; 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            animation: slash-shine 3s linear infinite; 
+        }
+        @keyframes slash-shine { to { background-position: 200% center; } }
+
+        .signature-name { 
+            font-family: 'Great Vibes', cursive; 
+            font-size: clamp(3rem, 8vw, 4.5rem); 
+            color: var(--primary); 
+            display: block; 
+            text-shadow: 2px 5px 12px rgba(0,0,0,1);
+        }
+        .peace-wish { 
+            font-family: 'Cinzel', serif; 
+            font-size: 1.1rem; 
+            color: #555; 
+            letter-spacing: 10px; 
+            margin-top: 10px; 
+        }
+
+        /* 섹션 4: 주문서 링크 */
+        .cta-section {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .cta-content h2 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+        
+        .cta-content p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: #888;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 20px 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        /* 반응형 */
+        @media (max-width: 1024px) { 
+            nav { padding: 10px 5px; } 
+            .logo { font-size: 1.15rem; } 
+            nav ul { gap: 5px; } 
+            .dropbtn { padding: 8px 10px; font-size: 0.8rem; } 
+            .call-btn { padding: 8px 12px; font-size: 0.75rem; }
+            
+            .lineup-grid { 
+                grid-template-columns: 1fr !important; 
+                max-width: 100vw !important; 
+                gap: 0; 
+                padding: 0; 
+            }
+            .lineup-card { 
+                border-radius: 0; 
+                border-left: none; 
+                border-right: none; 
+                width: 100vw; 
+            }
+            .lineup-grid img { 
+                width: 100vw !important; 
+            }
+            
+            .intro-line { font-size: 1.2rem !important; }
+            .main-line { font-size: 1.8rem !important; }
+            
+            .cta-btn { padding: 15px 40px; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">PAGE EDITOR</a>
+    <ul>
+        <li class="dropdown" id="dropdown">
+            <button class="dropbtn" id="dropbtn">샘플보기</button>
+            <div class="dropdown-content">
+                <a href="index.html">홈</a>
+                <a href="portfolio.html">샘플</a>
+                <a href="프로그램주문서.html">주문서</a>
+            </div>
+        </li>
+        <li><a href="tel:010-7928-8645" class="call-btn">010-7928-8645</a></li>
+    </ul>
+</nav>
+
+<!-- 섹션 2: 샘플 갤러리 -->
+<section id="lineup">
+    <h2 class="lineup-title">SAMPLE SHOWCASE</h2>
+    <div class="lineup-grid">
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/p1-s2-1.jpg?raw=true" alt="샘플 1"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/p1-s2-2.jpg?raw=true" alt="샘플 2"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/p1-s2-3.jpg?raw=true" alt="샘플 3"></div>
+    </div>
+</section>
+
+<!-- 섹션 3: 철학 -->
+<section class="lab-section">
+    <div>
+        <span class="intro-line">디자인을 바꾸는 데 비용이 들지 않는다면,</span>
+        <span class="main-line"><span class="shining-text">무한한 가능성</span>이 펼쳐집니다.</span>
+        <span class="signature-name">Sukbeom Kim</span>
+        <div class="peace-wish">Innovation</div>
+    </div>
+</section>
+
+<!-- 섹션 4: 주문서 링크 -->
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>지금 바로 시작하세요</h2>
+        <p>버튼 하나로 평생 무한 변경 가능한<br>맞춤형 상세페이지를 경험해보세요</p>
+        <a href="프로그램주문서.html" class="cta-btn">주문하기</a>
+    </div>
+</section>
+
+<script>
+    const dropbtn = document.getElementById('dropbtn');
+    const dropdown = document.getElementById('dropdown');
+    
+    dropbtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('active');
+    });
+    
+    window.addEventListener('click', (e) => {
+        dropdown.classList.remove('active');
+    });
+</script>
+
+</body>
+</html>
