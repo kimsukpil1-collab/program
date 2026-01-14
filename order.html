@@ -191,7 +191,7 @@
             <div class="dropdown-content">
                 <a href="index.html">홈</a>
                 <a href="portfolio.html">샘플보기</a>
-                <a href="order.html">주문서</a>
+                <a href="프로그램주문서.html">주문서</a>
             </div>
         </li>
     </ul>
@@ -249,7 +249,7 @@
         </div>
         
         <div class="info-box">
-            <h3>📎 참고 자료 제출 안내</h3>
+            <h3>🔎 참고 자료 제출 안내</h3>
             <p>• 로고, 제품 이미지, 참고 디자인 등의 파일은 아래 이메일로 보내주세요</p>
             <p>• 파일명에 <strong>상품명</strong>을 포함해주시면 더욱 빠른 작업이 가능합니다</p>
         </div>
@@ -309,8 +309,8 @@
 
         const now = new Date();
         const dateStr = `${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
-        let count = localStorage.getItem('last_count') || 0;
-        let lastDate = localStorage.getItem('last_date');
+        let count = localStorage.getItem('last_count_program') || 0;
+        let lastDate = localStorage.getItem('last_date_program');
 
         if(lastDate !== dateStr) {
             count = 1;
@@ -318,25 +318,55 @@
             count = parseInt(count) + 1;
         }
         
-        localStorage.setItem('last_date', dateStr);
-        localStorage.setItem('last_count', count);
+        localStorage.setItem('last_date_program', dateStr);
+        localStorage.setItem('last_count_program', count);
 
         const token = "8566107878:AAFdrgRT143Ym3WEGJwz0gHQDEePlSP_Vsk";
         const chatId = "7299827824";
-        const text = `🎨 [상세페이지 주문_${dateStr}_${count}]\n\n📦 상품명: ${productName}\n💎 패키지: ${packageType}\n👤 담당자: ${name}\n📞 연락처: ${contact}\n📧 이메일: ${email}\n💬 요청사항:\n${message}`;
+        const text = `🎨 [상세페이지주문_${dateStr}_${count}]
 
+📦 상품명: ${productName}
+💎 패키지: ${packageType}
+👤 담당자: ${name}
+📞 연락처: ${contact}
+📧 이메일: ${email}
+💬 요청사항:
+${message}`;
+
+        // 성공 오버레이 먼저 표시
         document.getElementById('success-overlay').style.display = 'flex';
 
         try {
-            await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: text })
+                headers: { 
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    chat_id: chatId, 
+                    text: text 
+                })
             });
+
+            const result = await response.json();
+            
+            if (!result.ok) {
+                console.error("텔레그램 전송 실패:", result);
+                alert("주문 전송에 실패했습니다. 다시 시도해주세요.");
+                document.getElementById('success-overlay').style.display = 'none';
+                return;
+            }
+            
+            console.log("텔레그램 전송 성공:", result);
+            
         } catch (error) {
-            console.error("전송 실패:", error);
+            console.error("전송 오류:", error);
+            alert("주문 전송 중 오류가 발생했습니다. 인터넷 연결을 확인해주세요.");
+            document.getElementById('success-overlay').style.display = 'none';
+            return;
         }
 
+        // 성공 시 4초 후 홈으로 이동
         setTimeout(() => {
             window.location.href = 'index.html';
         }, 4000);
