@@ -472,6 +472,19 @@
         <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/p1-s2-1.jpg?raw=true" alt="샘플 1"></div>
         <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/p1-s2-2.jpg?raw=true" alt="샘플 2"></div>
         <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/p1-s2-3.jpg?raw=true" alt="샘플 3"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/221.jpg?raw=true" alt="샘플 221"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/222.jpg?raw=true" alt="샘플 222"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/223.jpg?raw=true" alt="샘플 223"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/224.jpg?raw=true" alt="샘플 224"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/225.jpg?raw=true" alt="샘플 225"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/226.jpg?raw=true" alt="샘플 226"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/227.jpg?raw=true" alt="샘플 227"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/228.jpg?raw=true" alt="샘플 228"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/229.jpg?raw=true" alt="샘플 229"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/230.jpg?raw=true" alt="샘플 230"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/231.jpg?raw=true" alt="샘플 231"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/232.jpg?raw=true" alt="샘플 232"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/neago_design/blob/main/images/233.jpg?raw=true" alt="샘플 233"></div>
     </div>
 </section>
 
@@ -538,7 +551,7 @@
         </div>
         
         <div class="info-box">
-            <h3>📎 참고 자료 제출 안내</h3>
+            <h3>🔎 참고 자료 제출 안내</h3>
             <p>• 로고, 제품 이미지, 참고 디자인 등의 파일은 아래 이메일로 보내주세요</p>
             <p>• 파일명에 <strong>상품명</strong>을 포함해주시면 더욱 빠른 작업이 가능합니다</p>
         </div>
@@ -569,73 +582,4 @@
     });
     
     window.addEventListener('click', (e) => {
-        dropdown.classList.remove('active');
-    });
-
-    function copyEmail() {
-        const email = 'kimsukpil1@gmail.com';
-        navigator.clipboard.writeText(email).then(() => {
-            alert('이메일 주소가 복사되었습니다! 📋');
-        }).catch(() => {
-            alert('복사에 실패했습니다.');
-        });
-    }
-
-    async function handleFinalSubmit() {
-        const productName = document.getElementById('product-name').value;
-        const packageType = document.getElementById('package-type').value;
-        const name = document.getElementById('user-name').value;
-        const contact = document.getElementById('user-contact').value;
-        const email = document.getElementById('user-email').value;
-        const message = document.getElementById('user-msg').value;
-
-        if(!productName || !packageType || !name || !contact) {
-            alert("필수 항목을 모두 입력해주세요.\n(상품명, 패키지, 담당자명, 연락처)");
-            return;
-        }
-
-        const now = new Date();
-        const dateStr = `${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
-        let count = localStorage.getItem('last_count_program') || 0;
-        let lastDate = localStorage.getItem('last_date_program');
-
-        if(lastDate !== dateStr) {
-            count = 1;
-        } else {
-            count = parseInt(count) + 1;
-        }
-        
-        localStorage.setItem('last_date_program', dateStr);
-        localStorage.setItem('last_count_program', count);
-
-        const token = "8566107878:AAFdrgRT143Ym3WEGJwz0gHQDEePlSP_Vsk";
-        const chatId = "7299827824";
-        const text = `🎨 [상세페이지 주문_${dateStr}_${count}]\n\n📦 상품명: ${productName}\n💎 패키지: ${packageType}\n👤 담당자: ${name}\n📞 연락처: ${contact}\n📧 이메일: ${email}\n💬 요청사항:\n${message}`;
-
-        document.getElementById('success-overlay').style.display = 'flex';
-
-        try {
-            await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: text })
-            });
-        } catch (error) {
-            console.error("전송 실패:", error);
-        }
-
-        setTimeout(() => {
-            document.getElementById('success-overlay').style.display = 'none';
-            document.getElementById('product-name').value = '';
-            document.getElementById('package-type').value = '';
-            document.getElementById('user-name').value = '';
-            document.getElementById('user-contact').value = '';
-            document.getElementById('user-email').value = '';
-            document.getElementById('user-msg').value = '';
-            document.getElementById('user-msg').style.height = 'auto';
-        }, 4000);
-    }
-</script>
-
-</body>
-</html>
+        dropdown.classList.remove('active
