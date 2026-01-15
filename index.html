@@ -574,92 +574,77 @@
 
     // 주문서 제출 함수
     async function handleFinalSubmit() {
-        const productName = document.getElementById('product-name').value;
-        const packageType = document.getElementById('package-type').value;
-        const name = document.getElementById('user-name').value;
-        const contact = document.getElementById('user-contact').value;
-        const email = document.getElementById('user-email').value;
-        const message = document.getElementById('user-msg').value;
+    const productName = document.getElementById('product-name').value;
+    const contact = document.getElementById('user-contact').value;
 
-        if(!productName || !packageType || !name || !contact) {
-            alert("필수 항목을 모두 입력해주세요.\n(상품명, 패키지, 담당자명, 연락처)");
-            return;
-        }
+    if(!productName || !contact) {
+        alert("필수 항목을 모두 입력해주세요.\n(상품명, 연락처)");
+        return;
+    }
 
-        const now = new Date();
-        const dateStr = `${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
-        let count = localStorage.getItem('last_count_program') || 0;
-        let lastDate = localStorage.getItem('last_date_program');
+    const now = new Date();
+    const dateStr = `${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
+    let count = localStorage.getItem('last_count_program') || 0;
+    let lastDate = localStorage.getItem('last_date_program');
 
-        if(lastDate !== dateStr) {
-            count = 1;
-        } else {
-            count = parseInt(count) + 1;
-        }
-        
-        localStorage.setItem('last_date_program', dateStr);
-        localStorage.setItem('last_count_program', count);
+    if(lastDate !== dateStr) {
+        count = 1;
+    } else {
+        count = parseInt(count) + 1;
+    }
+    
+    localStorage.setItem('last_date_program', dateStr);
+    localStorage.setItem('last_count_program', count);
 
-        const token = "8566107878:AAFdrgRT143Ym3WEGJwz0gHQDEePlSP_Vsk";
-        const chatId = "7299827824";
-        const text = `🎨 [상세페이지주문_${dateStr}_${count}]
+    const token = "8566107878:AAFdrgRT143Ym3WEGJwz0gHQDEePlSP_Vsk";
+    const chatId = "7299827824";
+    const text = `🎨 [상세페이지주문_${dateStr}_${count}]
 
 📦 상품명: ${productName}
-💎 패키지: ${packageType}
-👤 담당자: ${name}
-📞 연락처: ${contact}
-📧 이메일: ${email}
-💬 요청사항:
-${message}`;
+📞 연락처: ${contact}`;
 
-        // 성공 오버레이 먼저 표시
-        document.getElementById('success-overlay').style.display = 'flex';
+    document.getElementById('success-overlay').style.display = 'flex';
 
-        try {
-            const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ 
-                    chat_id: chatId, 
-                    text: text 
-                })
-            });
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                chat_id: chatId, 
+                text: text 
+            })
+        });
 
-            const result = await response.json();
-            
-            if (!result.ok) {
-                console.error("텔레그램 전송 실패:", result);
-                alert("주문 전송에 실패했습니다. 다시 시도해주세요.");
-                document.getElementById('success-overlay').style.display = 'none';
-                return;
-            }
-            
-            console.log("텔레그램 전송 성공:", result);
-            
-        } catch (error) {
-            console.error("전송 오류:", error);
-            alert("주문 전송 중 오류가 발생했습니다. 인터넷 연결을 확인해주세요.");
+        const result = await response.json();
+        
+        if (!result.ok) {
+            console.error("텔레그램 전송 실패:", result);
+            alert("주문 전송에 실패했습니다. 다시 시도해주세요.");
             document.getElementById('success-overlay').style.display = 'none';
             return;
         }
-
-        // 성공 시 4초 후 홈으로 이동
-        setTimeout(() => {
-            window.location.href = '#home';
-            document.getElementById('success-overlay').style.display = 'none';
-            // 폼 초기화
-            document.getElementById('product-name').value = '';
-            document.getElementById('package-type').value = '';
-            document.getElementById('user-name').value = '';
-            document.getElementById('user-contact').value = '';
-            document.getElementById('user-email').value = '';
-            document.getElementById('user-msg').value = '';
-        }, 4000);
+        
+        console.log("텔레그램 전송 성공:", result);
+        
+    } catch (error) {
+        console.error("전송 오류:", error);
+        alert("주문 전송 중 오류가 발생했습니다. 인터넷 연결을 확인해주세요.");
+        document.getElementById('success-overlay').style.display = 'none';
+        return;
     }
+
+    setTimeout(() => {
+        window.location.href = '#home';
+        document.getElementById('success-overlay').style.display = 'none';
+        document.getElementById('product-name').value = '';
+        document.getElementById('user-contact').value = '';
+    }, 4000);
+}
 </script>
 
 </body>
 
 </html>
+
