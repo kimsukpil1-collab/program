@@ -442,12 +442,12 @@
 <nav>
     <a href="#home" class="logo">PAGE EDITOR</a>
     <ul>
-        <li class="dropdown" id="dropdown">
-            <button class="dropbtn" id="dropbtn">샘플보기</button>
-            <div class="dropdown-content">
-                <a href="#home">홈</a>
-                <a href="#lineup">샘플</a>
-                <a href="#order">주문서</a>
+        <li class="dropdown">
+            <button class="dropbtn" onclick="toggleDropdown(event)">샘플보기</button>
+            <div class="dropdown-content" id="dropdown-menu">
+                <a href="#home" onclick="closeDropdown()">홈</a>
+                <a href="#lineup" onclick="closeDropdown()">샘플</a>
+                <a href="#order" onclick="closeDropdown()">주문서</a>
             </div>
         </li>
         <li><a href="tel:010-7928-8645" class="call-btn">010-7928-8645</a></li>
@@ -469,22 +469,23 @@
 <section id="lineup">
     <h2 class="lineup-title">SAMPLE SHOWCASE</h2>
     <div class="lineup-grid">
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/p1-s2-1.jpg" alt="샘플 1" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/p1-s2-2.jpg" alt="샘플 2" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/p1-s2-3.jpg" alt="샘플 3" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/221.jpg" alt="샘플 221" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/222.jpg" alt="샘플 222" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/223.jpg" alt="샘플 223" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/224.jpg" alt="샘플 224" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/225.jpg" alt="샘플 225" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/226.jpg" alt="샘플 226" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/227.jpg" alt="샘플 227" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/228.jpg" alt="샘플 228" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/229.jpg" alt="샘플 229" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/230.jpg" alt="샘플 230" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/231.jpg" alt="샘플 231" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/232.jpg" alt="샘플 232" loading="lazy"></div>
-        <div class="lineup-card"><img src="https://raw.githubusercontent.com/kimsukpil1-collab/neago_design/main/images/233.jpg" alt="샘플 233" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/p1-s2-1.jpg?raw=true" alt="샘플 1" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/p1-s2-2.jpg?raw=true" alt="샘플 2" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/p1-s2-3.jpg?raw=true" alt="샘플 3" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/p1-s2-4.jpg?raw=true" alt="샘플 4" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/221.jpg?raw=true" alt="샘플 221" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/222.jpg?raw=true" alt="샘플 222" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/223.jpg?raw=true" alt="샘플 223" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/224.jpg?raw=true" alt="샘플 224" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/225.jpg?raw=true" alt="샘플 225" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/226.jpg?raw=true" alt="샘플 226" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/227.jpg?raw=true" alt="샘플 227" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/228.jpg?raw=true" alt="샘플 228" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/229.jpg?raw=true" alt="샘플 229" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/230.jpg?raw=true" alt="샘플 230" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/231.jpg?raw=true" alt="샘플 231" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/232.jpg?raw=true" alt="샘플 232" loading="lazy"></div>
+        <div class="lineup-card"><img src="https://github.com/kimsukpil1-collab/program/blob/main/233.jpg?raw=true" alt="샘플 233" loading="lazy"></div>
     </div>
 </section>
 
@@ -575,16 +576,21 @@
 
 <script>
     // 드롭다운 메뉴 토글
-    const dropbtn = document.getElementById('dropbtn');
-    const dropdown = document.getElementById('dropdown');
-    
-    dropbtn.addEventListener('click', (e) => {
+    function toggleDropdown(e) {
         e.stopPropagation();
-        dropdown.classList.toggle('active');
-    });
+        const menu = document.getElementById('dropdown-menu');
+        const parent = menu.parentElement;
+        parent.classList.toggle('active');
+    }
     
-    window.addEventListener('click', (e) => {
-        dropdown.classList.remove('active');
+    function closeDropdown() {
+        const parent = document.getElementById('dropdown-menu').parentElement;
+        parent.classList.remove('active');
+    }
+    
+    window.addEventListener('click', () => {
+        const parent = document.getElementById('dropdown-menu').parentElement;
+        parent.classList.remove('active');
     });
 
     // 이메일 주소 복사 함수
