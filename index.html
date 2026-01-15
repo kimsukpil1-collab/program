@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Noto+Sans+KR:wght@300;400;900&family=Nanum+Brush+Script&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --primary: #667eea; 
-            --secondary: #764ba2; 
+            --primary: #8a9bc4; 
+--secondary: #9088b0;
             --bg: #0a0a0f; 
         }
         body { background: var(--bg); color: #fff; margin: 0; font-family: 'Noto Sans KR', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
@@ -312,16 +312,19 @@
             letter-spacing: 1px; 
         }
         .offer-input, .offer-textarea, .offer-select { 
-            width: 100%; 
-            border: none; 
-            border-bottom: 2px solid var(--primary); 
-            padding: 10px 0; 
-            font-size: 16px; 
-            background: transparent; 
-            color: #2c3e50; 
-            outline: none; 
-            font-family: 'Noto Sans KR', sans-serif;
-        }
+    width: 100%; 
+    box-sizing: border-box;
+    border: none; 
+    padding: 18px 20px; 
+    font-size: 16px; 
+    background: #e0e5ec;
+    color: #2c3e50; 
+    outline: none; 
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 15px;
+    box-shadow: inset 5px 5px 10px #bec3c9, inset -5px -5px 10px #ffffff;
+    transition: all 0.3s;
+}
         
         .offer-select {
             cursor: pointer;
@@ -341,19 +344,20 @@
         }
         
         .submit-btn { 
-            width: 100%; 
-            padding: 20px; 
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: #fff; 
-            border-radius: 12px; 
-            font-size: 20px; 
-            font-weight: 900; 
-            border: none; 
-            cursor: pointer; 
-            box-shadow: 6px 6px 12px #bec3c9, -6px -6px 12px #ffffff; 
-            margin-top: 20px; 
-            transition: transform 0.2s;
-        }
+    width: 100%; 
+    box-sizing: border-box;
+    padding: 22px; 
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: #fff; 
+    border-radius: 15px; 
+    font-size: 18px; 
+    font-weight: 900; 
+    border: none; 
+    cursor: pointer; 
+    box-shadow: 8px 8px 16px #bec3c9, -8px -8px 16px #ffffff; 
+    margin-top: 0; 
+    transition: all 0.3s;
+}
         .submit-btn:hover { 
             transform: translateY(-2px); 
         }
@@ -510,62 +514,28 @@
         </div>
 
         <h1 class="offer-title">맞춤 상세페이지 주문서</h1>
-        <p class="offer-subtitle">버튼 하나로 평생 무한 변경 가능한 프로그램</p>
         
         <div class="field">
-            <label>상품명 / 회사명</label>
-            <input type="text" id="product-name" class="offer-input" placeholder="예: 건강식품 상세페이지">
-        </div>
-        
-        <div class="field">
-            <label>패키지 선택</label>
-            <select id="package-type" class="offer-select">
-                <option value="">패키지를 선택하세요</option>
-                <option value="스몰 배너 (700px) - 100,000원">스몰 배너 (700px) - 100,000원</option>
-                <option value="기본 모듈 (1,500픽셀) - 300,000원">기본 모듈 (1,500픽셀) - 300,000원</option>
-                <option value="프리미엄 모듈 (3,000픽셀) - 550,000원">프리미엄 모듈 (3,000픽셀) - 550,000원</option>
-                <option value="맞춤형 패키지 (15,000픽셀) - 2,500,000원">맞춤형 패키지 (15,000픽셀) - 2,500,000원</option>
-            </select>
-        </div>
-        
-        <div class="field">
-            <label>담당자명</label>
-            <input type="text" id="user-name" class="offer-input" placeholder="성함">
+            <label>어떤 상품인가요?</label>
+            <input type="text" id="product-name" class="offer-input" placeholder="">
         </div>
         
         <div class="field">
             <label>연락처</label>
-            <input type="text" id="user-contact" class="offer-input" placeholder="010-0000-0000">
+            <input type="text" id="user-contact" class="offer-input" placeholder="010-">
         </div>
         
-        <div class="field">
-            <label>이메일</label>
-            <input type="email" id="user-email" class="offer-input" placeholder="example@email.com">
-        </div>
-        
-        <div class="field">
-            <label>희망 컨셉 / 요청사항</label>
-            <textarea id="user-msg" class="offer-textarea" 
-                      oninput="this.style.height='auto'; this.style.height=this.scrollHeight+'px';" 
-                      placeholder="원하시는 디자인 컨셉, 색상, 특별히 강조하고 싶은 내용 등을 자유롭게 작성해주세요." 
-                      rows="1"></textarea>
-        </div>
-        
-        <div class="info-box">
-            <h3>🔎 참고 자료 제출 안내</h3>
-            <p>• 로고, 제품 이미지, 참고 디자인 등의 파일은 아래 이메일로 보내주세요</p>
-            <p>• 파일명에 <strong>상품명</strong>을 포함해주시면 더욱 빠른 작업이 가능합니다</p>
-        </div>
-        
-        <div class="field" style="margin-top: 25px;">
-            <label>첨부파일 전송 이메일</label>
-            <div style="display: flex; align-items: center; gap: 10px; margin-top: 4px;">
-                <span style="font-size: 16px; color: #2c3e50; font-weight: 600;">kimsukpil1@gmail.com</span>
-                <button onclick="copyEmail()" style="padding: 8px 16px; background: #e0e5ec; color: #666; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; box-shadow: inset 3px 3px 6px #bec3c9, inset -3px -3px 6px #ffffff;">주소복사</button>
+        <div style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px; margin-top: 35px; display: flex; justify-content: space-between; align-items: center; box-shadow: inset 2px 2px 5px #d1d9e6, inset -2px -2px 5px #ffffff;">
+            <div style="flex: 1;">
+                <div style="font-size: 12px; color: #888; margin-bottom: 8px; font-weight: 700; letter-spacing: 0.5px;">📎 첨부파일 전송 이메일</div>
+                <div style="font-size: 16px; color: var(--primary); font-weight: 700;">kimsukpil1@gmail.com</div>
             </div>
+            <button onclick="copyEmail()" style="padding: 10px 20px; background: #e0e5ec; color: #666; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 5px 5px 10px #bec3c9, -5px -5px 10px #ffffff; transition: all 0.2s;">주소복사</button>
         </div>
         
-        <button class="submit-btn" onclick="handleFinalSubmit()">주 문 하 기</button>
+        <button class="submit-btn" onclick="handleFinalSubmit()">상담요청</button>
+        
+        <a href="https://smartstore.naver.com/pxq1/products/12976242217" target="_blank" style="display: block; width: 100%; box-sizing: border-box; padding: 22px; background: linear-gradient(135deg, #03c75a 0%, #029648 100%); color: #fff !important; border-radius: 15px; font-size: 18px; font-weight: 900; text-decoration: none; box-shadow: 8px 8px 16px #bec3c9, -8px -8px 16px #ffffff; margin-top: 20px; transition: all 0.3s; text-align: center; border: none; cursor: pointer;">네이버에서 상품결제</a>
         
         <div class="signature-box">
             <span class="signature-name">Sukbeom Kim</span>
@@ -573,7 +543,6 @@
         </div>
     </div>
 </section>
-
 <script>
     // 드롭다운 메뉴 토글
     function toggleDropdown(e) {
@@ -692,4 +661,5 @@ ${message}`;
 </script>
 
 </body>
+
 </html>
