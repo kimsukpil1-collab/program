@@ -280,7 +280,7 @@
         <div class="email-box">
             <div class="email-info">
                 <div class="email-label">📎 첨부파일 전송 이메일</div>
-                <div class="email-address">kimsukpil1@gmail.com</div>
+                <div class="email-address"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="385351554b4d5348515409785f55595154165b5755">[email&#160;protected]</a></div>
             </div>
             <button class="copy-btn" onclick="copyEmail()">주소 복사</button>
         </div>
@@ -292,7 +292,7 @@
     </div>
 </section>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const dropbtn = document.querySelector('.dropbtn');
     const dropdown = document.querySelector('.dropdown');
     
@@ -340,7 +340,7 @@
 
         const token = "8566107878:AAFdrgRT143Ym3WEGJwz0gHQDEePlSP_Vsk";
         const chatId = "7299827824";
-        const text = `🎨 [상세페이지주문_${dateStr}_${count}]
+        const text = `🎨 [프로그램주문_${dateStr}_${count}]
 
 📦 상품명: ${productName}
 📞 연락처: ${contact}`;
@@ -374,19 +374,4 @@
         } catch (error) {
             console.error("전송 오류:", error);
             alert("주문 전송 중 오류가 발생했습니다. 인터넷 연결을 확인해주세요.");
-            document.getElementById('success-overlay').style.display = 'none';
-            return;
-        }
-
-        // 성공 시 4초 후 홈으로 이동
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 4000);
-    }
-</script>
-
-</body>
-
-</html>
-
-
+            document.getElementById('success-overlay').style.display = 'n
