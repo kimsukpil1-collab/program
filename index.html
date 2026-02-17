@@ -38,106 +38,331 @@
         .order-btn:hover { opacity: 0.85; }
         .call-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff !important; padding: 10px 20px; border-radius: 5px; font-weight: 900; text-decoration: none; border: 1px solid #fff; }
 
-        /* ===== 히어로 섹션 - 완전 새 디자인 ===== */
+        /* ===== 히어로 섹션 - 초보→챔피언 스토리 배너 ===== */
         .hero-section {
             position: relative;
             width: 100%;
-            min-height: 88vh;
+            min-height: 92vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: #050508;
+            background: #07050f;
         }
 
-        /* 배경: 빛나는 격자 + 그라디언트 */
+        /* 배경: 경기장 조명 느낌 */
         .hero-bg {
             position: absolute; inset: 0;
-            background: 
-                radial-gradient(ellipse 80% 60% at 50% 40%, rgba(102,126,234,0.22) 0%, transparent 70%),
-                radial-gradient(ellipse 40% 50% at 80% 20%, rgba(167,139,250,0.15) 0%, transparent 60%),
-                radial-gradient(ellipse 30% 40% at 10% 80%, rgba(118,75,162,0.12) 0%, transparent 60%);
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 100%, rgba(240,192,64,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 90% 60% at 50% 30%, rgba(102,126,234,0.18) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 30% at 20% 80%, rgba(118,75,162,0.1) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 30% at 80% 80%, rgba(118,75,162,0.1) 0%, transparent 60%);
         }
+        /* 바닥 빛 반사 */
+        .hero-floor {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 35%;
+            background: linear-gradient(to top, rgba(240,192,64,0.06) 0%, transparent 100%);
+        }
+        /* 스타디움 라인 */
         .hero-grid {
             position: absolute; inset: 0;
             background-image:
-                linear-gradient(rgba(102,126,234,0.07) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(102,126,234,0.07) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 100%);
+                linear-gradient(rgba(240,192,64,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102,126,234,0.05) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse 85% 75% at 50% 60%, black 20%, transparent 100%);
         }
 
-        /* 떠다니는 파티클 */
+        /* 파티클 = 금빛 + 보라빛 혼합 */
         .particle {
             position: absolute;
-            width: 4px; height: 4px;
             border-radius: 50%;
-            background: rgba(167,139,250,0.7);
+            background: rgba(240,192,64,0.8);
             animation: float-particle linear infinite;
         }
+        .particle.purple { background: rgba(167,139,250,0.7); }
         @keyframes float-particle {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+            0%   { transform: translateY(100vh) scale(0) rotate(0deg); opacity: 0; }
+            8%   { opacity: 1; }
+            92%  { opacity: 0.8; }
+            100% { transform: translateY(-5vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
+        /* ── 스토리 레이아웃: 왼쪽 BEFORE / 오른쪽 AFTER ── */
+        .hero-story {
+            position: absolute; inset: 0;
+            display: flex;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* BEFORE 패널 - 어두운 절반 */
+        .story-before {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 80px;
+            border-right: 1px solid rgba(255,255,255,0.06);
+        }
+        /* 쓰러진 사람 (CSS 실루엣) */
+        .figure-fallen {
+            position: relative;
+            width: 80px; height: 80px;
+            opacity: 0.25;
+            animation: fallen-breathe 4s ease-in-out infinite;
+        }
+        @keyframes fallen-breathe { 0%,100%{opacity:0.22;} 50%{opacity:0.30;} }
+        .figure-fallen .body {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            transform: translateX(-50%) rotate(90deg);
+            width: 48px; height: 14px;
+            background: #fff;
+            border-radius: 7px;
+        }
+        .figure-fallen .head {
+            position: absolute;
+            bottom: 26px; left: 50%;
+            transform: translateX(-50%) translateX(22px);
+            width: 18px; height: 18px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        .before-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 6px;
+            color: rgba(255,255,255,0.2);
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        /* AFTER 패널 - 황금빛 절반 */
+        .story-after {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 60px;
+        }
+        /* 서있는 우승 실루엣 */
+        .figure-champion {
+            position: relative;
+            width: 90px; height: 130px;
+            animation: champ-rise 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
+            animation-delay: 0.4s;
+        }
+        @keyframes champ-rise {
+            from { transform: translateY(40px) scale(0.7); opacity: 0; }
+            to   { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        .figure-champion .head {
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 22px; height: 22px;
+            background: rgba(240,192,64,0.9);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(240,192,64,0.6);
+        }
+        .figure-champion .body {
+            position: absolute;
+            top: 26px; left: 50%; transform: translateX(-50%);
+            width: 18px; height: 44px;
+            background: rgba(240,192,64,0.8);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(240,192,64,0.4);
+        }
+        .figure-champion .arm-l {
+            position: absolute;
+            top: 28px; left: calc(50% - 30px);
+            width: 26px; height: 10px;
+            background: rgba(240,192,64,0.7);
+            border-radius: 5px;
+            transform: rotate(-55deg);
+            transform-origin: right center;
+        }
+        .figure-champion .arm-r {
+            position: absolute;
+            top: 28px; left: calc(50% + 4px);
+            width: 26px; height: 10px;
+            background: rgba(240,192,64,0.7);
+            border-radius: 5px;
+            transform: rotate(55deg);
+            transform-origin: left center;
+        }
+        .figure-champion .leg-l {
+            position: absolute;
+            top: 68px; left: calc(50% - 14px);
+            width: 12px; height: 40px;
+            background: rgba(240,192,64,0.7);
+            border-radius: 5px;
+            transform: rotate(8deg);
+        }
+        .figure-champion .leg-r {
+            position: absolute;
+            top: 68px; left: calc(50% + 2px);
+            width: 12px; height: 40px;
+            background: rgba(240,192,64,0.7);
+            border-radius: 5px;
+            transform: rotate(-8deg);
+        }
+        /* 트로피 */
+        .trophy {
+            position: absolute;
+            top: -46px; left: 50%; transform: translateX(-50%);
+            width: 28px; height: 28px;
+            animation: trophy-glow 1.5s ease-in-out infinite;
+        }
+        .trophy::before {
+            content: '🏆';
+            font-size: 28px;
+            position: absolute;
+            top: 0; left: 0;
+        }
+        @keyframes trophy-glow {
+            0%,100% { filter: drop-shadow(0 0 6px rgba(240,192,64,0.6)); transform: translateX(-50%) scale(1); }
+            50%      { filter: drop-shadow(0 0 18px rgba(240,192,64,1)); transform: translateX(-50%) scale(1.15); }
+        }
+        /* 방사형 금빛 빛줄기 */
+        .rays {
+            position: absolute;
+            bottom: 60px; left: 50%;
+            transform: translateX(-50%);
+            width: 260px; height: 260px;
+            z-index: -1;
+        }
+        .ray {
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 2px;
+            transform-origin: bottom center;
+            background: linear-gradient(to top, rgba(240,192,64,0.4), transparent);
+            border-radius: 2px;
+            animation: ray-pulse 2.5s ease-in-out infinite;
+        }
+        @keyframes ray-pulse { 0%,100%{opacity:0.3;} 50%{opacity:0.9;} }
+
+        .after-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 6px;
+            color: rgba(240,192,64,0.5);
+            margin-top: 24px;
+            text-transform: uppercase;
+        }
+
+        /* 중앙 분리선 화살표 */
+        .divider-arrow {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+        }
+        .arrow-line {
+            width: 50px; height: 2px;
+            background: linear-gradient(90deg, rgba(102,126,234,0.6), rgba(240,192,64,0.8));
+            border-radius: 2px;
+        }
+        .arrow-tip {
+            width: 0; height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 14px solid rgba(240,192,64,0.7);
+            margin-left: 50px;
+            margin-top: -10px;
+        }
+        .arrow-label {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.3);
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        /* ── 메인 텍스트 콘텐츠 ── */
         .hero-content {
             position: relative; z-index: 10;
             text-align: center;
-            padding: 40px 20px;
-            max-width: 980px;
+            padding: 40px 20px 120px;
+            max-width: 860px;
         }
 
-        /* 상단 뱃지 */
-        .hero-badge {
-            display: inline-block;
-            background: rgba(102,126,234,0.15);
-            border: 1px solid rgba(102,126,234,0.5);
-            color: #a78bfa;
-            font-size: 0.85rem;
+        /* 상단 스토리 태그라인 */
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+        .tag-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #f0c040;
+            box-shadow: 0 0 10px rgba(240,192,64,0.8);
+            animation: dot-blink 1.4s ease-in-out infinite;
+        }
+        @keyframes dot-blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+        .tag-text {
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            color: rgba(240,192,64,0.7);
             font-weight: 700;
-            letter-spacing: 4px;
-            padding: 8px 22px;
-            border-radius: 30px;
-            margin-bottom: 36px;
             text-transform: uppercase;
-            animation: badge-glow 2.5s ease-in-out infinite;
-        }
-        @keyframes badge-glow {
-            0%,100% { box-shadow: 0 0 0 rgba(102,126,234,0); }
-            50% { box-shadow: 0 0 20px rgba(102,126,234,0.4); }
         }
 
-        /* 핵심 헤드라인 - 단 한 문장 */
+        /* 핵심 헤드라인 */
         .hero-headline {
             font-family: 'Black Han Sans', sans-serif;
-            font-size: clamp(2.2rem, 5.5vw, 5.2rem);
-            line-height: 1.15;
+            font-size: clamp(2rem, 5vw, 4.6rem);
+            line-height: 1.18;
             letter-spacing: -1px;
             color: #ffffff;
-            margin-bottom: 28px;
-            text-shadow: 0 0 60px rgba(102,126,234,0.3);
+            margin-bottom: 24px;
+        }
+        .hero-headline .line-before {
+            display: block;
+            font-size: 0.52em;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 400;
+        }
+        .hero-headline .line-main {
+            display: block;
         }
         .hero-headline .accent {
-            display: inline;
-            background: linear-gradient(110deg, #667eea 20%, #c084fc 50%, #a78bfa 80%);
+            background: linear-gradient(110deg, #f0c040 10%, #f97316 45%, #f0c040 80%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine-text 3s linear infinite;
+            animation: gold-shine 2.5s linear infinite;
         }
-        @keyframes shine-text { to { background-position: 200% center; } }
+        @keyframes gold-shine { to { background-position: 200% center; } }
+        .hero-headline .line-after {
+            display: block;
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.8);
+        }
 
         .hero-sub {
-            font-size: clamp(1rem, 2vw, 1.35rem);
-            color: rgba(255,255,255,0.55);
+            font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+            color: rgba(255,255,255,0.45);
             font-weight: 400;
-            margin-bottom: 50px;
-            line-height: 1.7;
+            margin-bottom: 44px;
+            line-height: 1.8;
         }
+        .hero-sub strong { color: rgba(255,255,255,0.75); font-weight: 700; }
 
-        /* CTA 버튼 그룹 */
+        /* CTA */
         .hero-cta {
             display: flex;
             gap: 16px;
@@ -145,67 +370,75 @@
             flex-wrap: wrap;
         }
         .btn-primary {
-            padding: 18px 44px;
-            background: linear-gradient(135deg, #667eea, #a78bfa);
-            color: #fff;
-            font-size: 1.1rem;
+            padding: 18px 48px;
+            background: linear-gradient(135deg, #d4a520, #f0c040, #d4a520);
+            background-size: 200% auto;
+            color: #1a0a00;
+            font-size: 1.05rem;
             font-weight: 900;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 0 8px 30px rgba(102,126,234,0.5);
+            box-shadow: 0 8px 30px rgba(240,192,64,0.45);
             transition: transform 0.2s, box-shadow 0.2s;
             display: inline-block;
+            animation: btn-gold-shine 3s linear infinite;
         }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(102,126,234,0.7); }
+        @keyframes btn-gold-shine { to { background-position: 200% center; } }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 14px 40px rgba(240,192,64,0.65); }
         .btn-ghost {
-            padding: 18px 44px;
+            padding: 18px 40px;
             background: transparent;
-            color: #a78bfa;
-            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            font-size: 1.05rem;
             font-weight: 700;
-            border: 2px solid rgba(167,139,250,0.5);
+            border: 1.5px solid rgba(255,255,255,0.2);
             border-radius: 50px;
             cursor: pointer;
             text-decoration: none;
             transition: all 0.2s;
             display: inline-block;
         }
-        .btn-ghost:hover { background: rgba(167,139,250,0.1); border-color: #a78bfa; }
+        .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
 
         /* 숫자 통계 */
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 60px;
-            margin-top: 70px;
+            gap: 50px;
+            margin-top: 60px;
             flex-wrap: wrap;
         }
         .stat-item { text-align: center; }
         .stat-number {
             font-family: 'Cinzel', serif;
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 900;
             color: #fff;
             line-height: 1;
         }
-        .stat-number span { color: #a78bfa; }
-        .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.45); letter-spacing: 2px; margin-top: 6px; text-transform: uppercase; }
+        .stat-number span { color: #f0c040; }
+        .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.35); letter-spacing: 2px; margin-top: 6px; text-transform: uppercase; }
 
         /* 스크롤 힌트 */
         .scroll-hint {
             position: absolute;
-            bottom: 30px; left: 50%;
+            bottom: 28px; left: 50%;
             transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-            color: rgba(255,255,255,0.3);
-            font-size: 0.75rem;
-            letter-spacing: 3px;
+            color: rgba(255,255,255,0.2);
+            font-size: 0.7rem;
+            letter-spacing: 4px;
             animation: bounce-down 2s ease-in-out infinite;
         }
-        .scroll-hint::after { content: '▼'; font-size: 0.6rem; }
-        @keyframes bounce-down { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+        .scroll-hint::after { content: ' ▼'; }
+        @keyframes bounce-down { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(8px);} }
+
+        /* 모바일 히어로 스토리 숨김 */
+        @media(max-width:768px){
+            .hero-story { display:none; }
+            .hero-content { padding: 60px 20px 100px; }
+        }
 
         /* ===== 금속판 슬로건 ===== */
         .metal-plate {
@@ -507,44 +740,95 @@
 <!-- ===== 히어로 섹션 ===== -->
 <div id="home" class="hero-section">
     <div class="hero-bg"></div>
+    <div class="hero-floor"></div>
     <div class="hero-grid"></div>
 
-    <!-- 파티클 -->
-    <div class="particle" style="left:10%;animation-duration:8s;animation-delay:0s;width:3px;height:3px;"></div>
-    <div class="particle" style="left:25%;animation-duration:11s;animation-delay:2s;width:5px;height:5px;"></div>
-    <div class="particle" style="left:40%;animation-duration:7s;animation-delay:4s;"></div>
-    <div class="particle" style="left:60%;animation-duration:13s;animation-delay:1s;width:2px;height:2px;"></div>
-    <div class="particle" style="left:75%;animation-duration:9s;animation-delay:3s;width:4px;height:4px;"></div>
-    <div class="particle" style="left:88%;animation-duration:10s;animation-delay:5s;width:3px;height:3px;"></div>
-    <div class="particle" style="left:50%;animation-duration:12s;animation-delay:0.5s;width:6px;height:6px;background:rgba(240,192,64,0.5)"></div>
+    <!-- 배경 스토리 실루엣 -->
+    <div class="hero-story">
+        <!-- BEFORE: 쓰러진 초보 -->
+        <div class="story-before">
+            <div class="figure-fallen">
+                <div class="head"></div>
+                <div class="body"></div>
+            </div>
+            <div class="before-label">Before</div>
+        </div>
 
+        <!-- AFTER: 트로피 든 챔피언 -->
+        <div class="story-after">
+            <!-- 방사형 빛줄기 -->
+            <div class="rays">
+                <div class="ray" style="height:130px;transform-origin:bottom center;transform:rotate(-60deg);animation-delay:0s;"></div>
+                <div class="ray" style="height:150px;transform-origin:bottom center;transform:rotate(-40deg);animation-delay:0.3s;"></div>
+                <div class="ray" style="height:120px;transform-origin:bottom center;transform:rotate(-20deg);animation-delay:0.1s;"></div>
+                <div class="ray" style="height:140px;transform-origin:bottom center;transform:rotate(0deg);animation-delay:0.5s;"></div>
+                <div class="ray" style="height:130px;transform-origin:bottom center;transform:rotate(20deg);animation-delay:0.2s;"></div>
+                <div class="ray" style="height:150px;transform-origin:bottom center;transform:rotate(40deg);animation-delay:0.4s;"></div>
+                <div class="ray" style="height:120px;transform-origin:bottom center;transform:rotate(60deg);animation-delay:0.1s;"></div>
+            </div>
+            <div class="figure-champion">
+                <div class="trophy"></div>
+                <div class="head"></div>
+                <div class="body"></div>
+                <div class="arm-l"></div>
+                <div class="arm-r"></div>
+                <div class="leg-l"></div>
+                <div class="leg-r"></div>
+            </div>
+            <div class="after-label">After</div>
+        </div>
+    </div>
+
+    <!-- 중앙 화살표 -->
+    <div class="divider-arrow">
+        <div style="display:flex;align-items:center;">
+            <div class="arrow-line"></div>
+            <div class="arrow-tip"></div>
+        </div>
+        <div class="arrow-label">Program</div>
+    </div>
+
+    <!-- 파티클 -->
+    <div class="particle" style="left:8%;width:3px;height:3px;animation-duration:9s;animation-delay:0s;"></div>
+    <div class="particle purple" style="left:18%;width:5px;height:5px;animation-duration:12s;animation-delay:2s;"></div>
+    <div class="particle" style="left:30%;width:4px;height:4px;animation-duration:7.5s;animation-delay:1s;"></div>
+    <div class="particle purple" style="left:55%;width:3px;height:3px;animation-duration:11s;animation-delay:3s;"></div>
+    <div class="particle" style="left:70%;width:6px;height:6px;animation-duration:8s;animation-delay:0.5s;"></div>
+    <div class="particle purple" style="left:82%;width:4px;height:4px;animation-duration:10s;animation-delay:4s;"></div>
+    <div class="particle" style="left:92%;width:3px;height:3px;animation-duration:13s;animation-delay:1.5s;"></div>
+
+    <!-- 메인 텍스트 -->
     <div class="hero-content">
-        <span class="hero-badge">✦ DETAIL PAGE EDITOR ✦</span>
+        <div class="hero-tag">
+            <span class="tag-dot"></span>
+            <span class="tag-text">Detail Page Editor</span>
+            <span class="tag-dot"></span>
+        </div>
 
         <h1 class="hero-headline">
-            지금 이 순간부터<br>
-            <span class="accent">상세페이지 디자인</span>을<br>
-            당신이 직접 만든다
+            <span class="line-before">디자인 몰라도 괜찮다</span>
+            <span class="line-main">초보가 <span class="accent">챔피언</span>이 되는</span>
+            <span class="line-after">단 하나의 프로그램</span>
         </h1>
 
         <p class="hero-sub">
-            전문 디자이너 없이도 — 코딩 없이도 — 외주비 없이도<br>
-            버튼 하나로 프로급 상세페이지를 무한 완성
+            어제까지 외주비에 치이던 당신이 — <strong>오늘부터 직접 만든다</strong><br>
+            코딩 제로 · 디자이너 제로 · 비용 제로
         </p>
 
         <div class="hero-cta">
-            <a href="#order" class="btn-primary">지금 바로 시작하기 →</a>
+            <a href="#order" class="btn-primary">🏆 지금 챔피언 되기</a>
             <a href="#lineup" class="btn-ghost">가격표 보기</a>
         </div>
 
         <div class="hero-stats">
             <div class="stat-item">
-                <div class="stat-number">90<span>만원~</span></div>
+                <div class="stat-number">90<span>만~</span></div>
                 <div class="stat-label">최저 시작가</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number"><span>∞</span></div>
-                <div class="stat-label">무한 수정 가능</div>
+                <div class="stat-label">무한 수정</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number">1<span>일</span></div>
@@ -778,48 +1062,40 @@
     }
 
     async function handleFinalSubmit() {
-        const productName = document.getElementById('product-name').value;
-        const contact = document.getElementById('user-contact').value;
+        const productName = document.getElementById('product-name').value.trim();
+        const contact = document.getElementById('user-contact').value.trim();
         if(!productName || !contact) {
-            alert("필수 항목을 모두 입력해주세요.\n(상품명, 연락처)");
+            alert("필수 항목을 모두 입력해주세요.\n(프로그램 종류, 연락처)");
             return;
         }
+
         const now = new Date();
         const dateStr = `${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
-        let count = localStorage.getItem('last_count_program') || 0;
-        let lastDate = localStorage.getItem('last_date_program');
-        if(lastDate !== dateStr) { count = 1; } else { count = parseInt(count) + 1; }
+        let count = parseInt(localStorage.getItem('last_count_program') || '0');
+        if(localStorage.getItem('last_date_program') !== dateStr) { count = 1; } else { count += 1; }
         localStorage.setItem('last_date_program', dateStr);
-        localStorage.setItem('last_count_program', count);
+        localStorage.setItem('last_count_program', String(count));
 
-        const token = "8566107878:AAFdrgRT143Ym3WEGJwz0gHQDEePlSP_Vsk";
-        const chatId = "7299827824";
-        const text = `🎨 [프로그램주문_${dateStr}_${count}]\n\n📦 상품명: ${productName}\n📞 연락처: ${contact}`;
+        const text = `🎨 [프로그램주문_${dateStr}_${count}]\n\n📦 상품명: ${productName}\n📞 연락처: ${contact}\n🕐 ${now.toLocaleString('ko-KR')}`;
 
+        // ✅ 성공 화면 즉시 표시
         document.getElementById('success-overlay').style.display = 'flex';
-        try {
-            const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: text })
-            });
-            const result = await response.json();
-            if (!result.ok) {
-                alert("주문 전송에 실패했습니다. 다시 시도해주세요.");
-                document.getElementById('success-overlay').style.display = 'none';
-                return;
-            }
-        } catch (error) {
-            alert("주문 전송 중 오류가 발생했습니다. 인터넷 연결을 확인해주세요.");
-            document.getElementById('success-overlay').style.display = 'none';
-            return;
-        }
+
+        // 구글 Apps Script로 전송 (no-cors — 제한 없음)
+        fetch('https://script.google.com/macros/s/AKfycbymzFquDdmIHcimqhO0LkSgNt8xp5x9f7WCztr9BZJedBfcPVjHlH2d9sI8nK9xkM8JVQ/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: '7299827824', text: text })
+        }).catch(e => console.error(e));
+
+        // 4초 후 초기화
         setTimeout(() => {
-            window.location.href = '#home';
             document.getElementById('success-overlay').style.display = 'none';
             document.getElementById('product-name').value = '';
             document.getElementById('user-contact').value = '';
-        }, 3000);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 4000);
     }
 </script>
 </body>
