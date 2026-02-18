@@ -39,520 +39,314 @@
         .call-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff !important; padding: 10px 20px; border-radius: 5px; font-weight: 900; text-decoration: none; border: 1px solid #fff; }
 
         /* ===== 히어로 섹션 - 초보→챔피언 스토리 배너 ===== */
+        /* ===== 매트릭스 히어로 ===== */
         .hero-section {
             position: relative;
             width: 100%;
-            min-height: 92vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: #07050f;
+            background: #000;
         }
 
-        /* 배경: 경기장 조명 느낌 */
-        .hero-bg {
-            position: absolute; inset: 0;
-            background:
-                radial-gradient(ellipse 60% 50% at 50% 100%, rgba(240,192,64,0.12) 0%, transparent 70%),
-                radial-gradient(ellipse 90% 60% at 50% 30%, rgba(102,126,234,0.18) 0%, transparent 65%),
-                radial-gradient(ellipse 40% 30% at 20% 80%, rgba(118,75,162,0.1) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 30% at 80% 80%, rgba(118,75,162,0.1) 0%, transparent 60%);
-        }
-        /* 바닥 빛 반사 */
-        .hero-floor {
+        /* 매트릭스 캔버스 */
+        #matrix-canvas {
             position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 35%;
-            background: linear-gradient(to top, rgba(240,192,64,0.06) 0%, transparent 100%);
-        }
-        /* 스타디움 라인 */
-        .hero-grid {
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(rgba(240,192,64,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(102,126,234,0.05) 1px, transparent 1px);
-            background-size: 80px 80px;
-            mask-image: radial-gradient(ellipse 85% 75% at 50% 60%, black 20%, transparent 100%);
+            inset: 0;
+            z-index: 0;
+            opacity: 0.55;
         }
 
-        /* 파티클 = 금빛 + 보라빛 혼합 */
-        .particle {
+        /* 좌우 분할 오버레이 */
+        .hero-split {
             position: absolute;
-            border-radius: 50%;
-            background: rgba(240,192,64,0.8);
-            animation: float-particle linear infinite;
-        }
-        .particle.purple { background: rgba(167,139,250,0.7); }
-        @keyframes float-particle {
-            0%   { transform: translateY(100vh) scale(0) rotate(0deg); opacity: 0; }
-            8%   { opacity: 1; }
-            92%  { opacity: 0.8; }
-            100% { transform: translateY(-5vh) scale(1.2) rotate(360deg); opacity: 0; }
-        }
-
-        /* ── 스토리 레이아웃: 왼쪽 BEFORE / 오른쪽 AFTER ── */
-        .hero-story {
-            position: absolute; inset: 0;
+            inset: 0;
             display: flex;
-            pointer-events: none;
             z-index: 1;
+            pointer-events: none;
         }
-
-        /* BEFORE 패널 - 어두운 절반 */
-        .story-before {
+        .split-left {
             flex: 1;
-            position: relative;
+            background: linear-gradient(135deg, rgba(60,0,0,0.25) 0%, rgba(10,0,0,0.15) 100%);
+            border-right: 1px solid rgba(255,60,60,0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-end;
-            padding-bottom: 80px;
-            border-right: 1px solid rgba(255,255,255,0.06);
+            justify-content: center;
+            padding: 40px 30px;
         }
-        /* 쓰러진 사람 (CSS 실루엣) */
-        .figure-fallen {
-            position: relative;
-            width: 80px; height: 80px;
-            opacity: 0.25;
-            animation: fallen-breathe 4s ease-in-out infinite;
-        }
-        @keyframes fallen-breathe { 0%,100%{opacity:0.22;} 50%{opacity:0.30;} }
-        .figure-fallen .body {
-            position: absolute;
-            bottom: 10px; left: 50%;
-            transform: translateX(-50%) rotate(90deg);
-            width: 48px; height: 14px;
-            background: #fff;
-            border-radius: 7px;
-        }
-        .figure-fallen .head {
-            position: absolute;
-            bottom: 26px; left: 50%;
-            transform: translateX(-50%) translateX(22px);
-            width: 18px; height: 18px;
-            background: #fff;
-            border-radius: 50%;
-        }
-        .before-label {
-            font-family: 'Cinzel', serif;
-            font-size: 0.65rem;
-            letter-spacing: 6px;
-            color: rgba(255,255,255,0.2);
-            margin-top: 20px;
-            text-transform: uppercase;
-        }
-
-        /* AFTER 패널 - 황금빛 절반 */
-        .story-after {
+        .split-right {
             flex: 1;
-            position: relative;
+            background: linear-gradient(135deg, rgba(0,20,0,0.15) 0%, rgba(0,40,10,0.25) 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-end;
-            padding-bottom: 60px;
+            justify-content: center;
+            padding: 40px 30px;
         }
-        /* 서있는 우승 실루엣 */
-        .figure-champion {
-            position: relative;
-            width: 90px; height: 130px;
-            animation: champ-rise 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
-            animation-delay: 0.4s;
-        }
-        @keyframes champ-rise {
-            from { transform: translateY(40px) scale(0.7); opacity: 0; }
-            to   { transform: translateY(0) scale(1); opacity: 1; }
-        }
-        .figure-champion .head {
-            position: absolute;
-            top: 0; left: 50%; transform: translateX(-50%);
-            width: 22px; height: 22px;
-            background: rgba(240,192,64,0.9);
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(240,192,64,0.6);
-        }
-        .figure-champion .body {
-            position: absolute;
-            top: 26px; left: 50%; transform: translateX(-50%);
-            width: 18px; height: 44px;
-            background: rgba(240,192,64,0.8);
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(240,192,64,0.4);
-        }
-        .figure-champion .arm-l {
-            position: absolute;
-            top: 28px; left: calc(50% - 30px);
-            width: 26px; height: 10px;
-            background: rgba(240,192,64,0.7);
-            border-radius: 5px;
-            transform: rotate(-55deg);
-            transform-origin: right center;
-        }
-        .figure-champion .arm-r {
-            position: absolute;
-            top: 28px; left: calc(50% + 4px);
-            width: 26px; height: 10px;
-            background: rgba(240,192,64,0.7);
-            border-radius: 5px;
-            transform: rotate(55deg);
-            transform-origin: left center;
-        }
-        .figure-champion .leg-l {
-            position: absolute;
-            top: 68px; left: calc(50% - 14px);
-            width: 12px; height: 40px;
-            background: rgba(240,192,64,0.7);
-            border-radius: 5px;
-            transform: rotate(8deg);
-        }
-        .figure-champion .leg-r {
-            position: absolute;
-            top: 68px; left: calc(50% + 2px);
-            width: 12px; height: 40px;
-            background: rgba(240,192,64,0.7);
-            border-radius: 5px;
-            transform: rotate(-8deg);
-        }
-        /* 트로피 */
-        .trophy {
-            position: absolute;
-            top: -46px; left: 50%; transform: translateX(-50%);
-            width: 28px; height: 28px;
-            animation: trophy-glow 1.5s ease-in-out infinite;
-        }
-        .trophy::before {
-            content: '🏆';
-            font-size: 28px;
-            position: absolute;
-            top: 0; left: 0;
-        }
-        @keyframes trophy-glow {
-            0%,100% { filter: drop-shadow(0 0 6px rgba(240,192,64,0.6)); transform: translateX(-50%) scale(1); }
-            50%      { filter: drop-shadow(0 0 18px rgba(240,192,64,1)); transform: translateX(-50%) scale(1.15); }
-        }
-        /* 방사형 금빛 빛줄기 */
-        .rays {
-            position: absolute;
-            bottom: 60px; left: 50%;
-            transform: translateX(-50%);
-            width: 260px; height: 260px;
-            z-index: -1;
-        }
-        .ray {
-            position: absolute;
-            bottom: 0; left: 50%;
-            width: 2px;
-            transform-origin: bottom center;
-            background: linear-gradient(to top, rgba(240,192,64,0.4), transparent);
-            border-radius: 2px;
-            animation: ray-pulse 2.5s ease-in-out infinite;
-        }
-        @keyframes ray-pulse { 0%,100%{opacity:0.3;} 50%{opacity:0.9;} }
-
-        .after-label {
-            font-family: 'Cinzel', serif;
+        .split-label {
+            font-family: 'Courier New', monospace;
             font-size: 0.65rem;
             letter-spacing: 6px;
-            color: rgba(240,192,64,0.5);
-            margin-top: 24px;
+            margin-bottom: 24px;
             text-transform: uppercase;
         }
+        .split-label.red { color: rgba(255,60,60,0.6); text-shadow: 0 0 10px rgba(255,60,60,0.4); }
+        .split-label.green { color: rgba(0,255,70,0.6); text-shadow: 0 0 10px rgba(0,255,70,0.4); }
 
-        /* 중앙 분리선 화살표 */
-        .divider-arrow {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 20;
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
+        /* 좌측: 밤샘 사람 */
+        .figure-tired {
+            width: 90px; height: 120px;
+            position: relative;
+            opacity: 0.45;
+            filter: hue-rotate(0deg);
         }
-        .arrow-line {
-            width: 50px; height: 2px;
-            background: linear-gradient(90deg, rgba(102,126,234,0.6), rgba(240,192,64,0.8));
-            border-radius: 2px;
+        .tired-glow {
+            font-size: 4rem;
+            opacity: 0.85;
+            filter: grayscale(0.3) brightness(0.8);
+            animation: tired-flicker 3s ease-in-out infinite;
         }
-        .arrow-tip {
-            width: 0; height: 0;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-left: 14px solid rgba(240,192,64,0.7);
-            margin-left: 50px;
-            margin-top: -10px;
+        @keyframes tired-flicker {
+            0%,100% { opacity: 0.28; }
+            50% { opacity: 0.18; }
+            75% { opacity: 0.35; }
         }
-        .arrow-label {
-            font-size: 0.6rem;
-            letter-spacing: 3px;
-            color: rgba(255,255,255,0.3);
-            margin-top: 8px;
-            text-transform: uppercase;
-        }
-
-        /* ── 메인 텍스트 콘텐츠 ── */
-        .hero-content {
-            position: relative; z-index: 10;
+        .tired-desc {
+            font-family: 'Courier New', monospace;
+            font-size: 0.72rem;
+            color: rgba(255,120,120,0.85);
             text-align: center;
-            padding: 40px 20px 120px;
+            line-height: 1.9;
+            margin-top: 16px;
+            text-shadow: 0 0 8px rgba(255,60,60,0.4);
+        }
+
+        /* 우측: 여유로운 사람 */
+        .figure-free {
+            font-size: 4rem;
+            animation: free-float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(0,255,70,0.5));
+        }
+        @keyframes free-float {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .free-desc {
+            font-family: 'Courier New', monospace;
+            font-size: 0.72rem;
+            color: rgba(0,255,70,0.85);
+            text-align: center;
+            line-height: 1.9;
+            margin-top: 16px;
+            text-shadow: 0 0 8px rgba(0,255,70,0.5);
+        }
+
+        /* 가운데 분리선 + VS */
+        .vs-divider {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .vs-line {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, rgba(0,255,70,0.4), transparent);
+        }
+        .vs-badge {
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: rgba(0,255,70,0.7);
+            letter-spacing: 2px;
+            padding: 6px 12px;
+            border: 1px solid rgba(0,255,70,0.3);
+            border-radius: 4px;
+            background: rgba(0,0,0,0.8);
+            text-shadow: 0 0 10px rgba(0,255,70,0.5);
+            box-shadow: 0 0 15px rgba(0,255,70,0.1);
+        }
+
+        /* 메인 콘텐츠 */
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 0 20px;
             max-width: 860px;
         }
-
-        /* 상단 스토리 태그라인 */
         .hero-tag {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
+            padding: 8px 20px;
+            border: 1px solid rgba(0,255,70,0.3);
+            border-radius: 4px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
         }
         .tag-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: #f0c040;
-            box-shadow: 0 0 10px rgba(240,192,64,0.8);
-            animation: dot-blink 1.4s ease-in-out infinite;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #00ff46;
+            box-shadow: 0 0 8px #00ff46;
+            animation: blink 1.2s ease-in-out infinite;
         }
-        @keyframes dot-blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
         .tag-text {
-            font-size: 0.8rem;
-            letter-spacing: 5px;
-            color: rgba(240,192,64,0.7);
-            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: rgba(0,255,70,0.8);
+            letter-spacing: 3px;
             text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0,255,70,0.5);
         }
 
-        /* 핵심 헤드라인 */
         .hero-headline {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 28px;
+        }
+        .line-before {
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            color: rgba(0,255,70,0.5);
+            letter-spacing: 4px;
+            text-shadow: 0 0 12px rgba(0,255,70,0.3);
+        }
+        .line-main {
             font-family: 'Black Han Sans', sans-serif;
-            font-size: clamp(2rem, 5vw, 4.6rem);
-            line-height: 1.18;
-            letter-spacing: -1px;
-            color: #ffffff;
-            margin-bottom: 24px;
+            font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+            color: #fff;
+            text-shadow: 0 0 30px rgba(0,255,70,0.3), 0 0 60px rgba(0,255,70,0.1), 2px 4px 20px rgba(0,0,0,1);
+            line-height: 1.15;
         }
-        .hero-headline .line-before {
-            display: block;
-            font-size: 0.52em;
-            color: rgba(255,255,255,0.35);
-            letter-spacing: 2px;
-            margin-bottom: 6px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-weight: 400;
+        .accent {
+            color: #00ff46;
+            text-shadow: 0 0 20px rgba(0,255,70,0.8), 0 0 40px rgba(0,255,70,0.4), 0 0 80px rgba(0,255,70,0.2);
         }
-        .hero-headline .line-main {
-            display: block;
-        }
-        .hero-headline .accent {
-            background: linear-gradient(110deg, #f0c040 10%, #f97316 45%, #f0c040 80%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gold-shine 2.5s linear infinite;
-        }
-        @keyframes gold-shine { to { background-position: 200% center; } }
-        .hero-headline .line-after {
-            display: block;
-            font-size: 0.85em;
-            color: rgba(255,255,255,0.8);
+        .line-after {
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            color: rgba(0,255,70,0.5);
+            letter-spacing: 4px;
+            text-shadow: 0 0 12px rgba(0,255,70,0.3);
         }
 
         .hero-sub {
-            font-size: clamp(0.95rem, 1.8vw, 1.2rem);
-            color: rgba(255,255,255,0.45);
-            font-weight: 400;
-            margin-bottom: 44px;
-            line-height: 1.8;
+            font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+            color: rgba(255,255,255,0.5);
+            line-height: 1.9;
+            margin-bottom: 36px;
+            font-family: 'Courier New', monospace;
         }
-        .hero-sub strong { color: rgba(255,255,255,0.75); font-weight: 700; }
+        .hero-sub strong {
+            color: #00ff46;
+            text-shadow: 0 0 12px rgba(0,255,70,0.6);
+        }
 
-        /* CTA */
         .hero-cta {
             display: flex;
             gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 50px;
         }
         .btn-primary {
-            padding: 18px 48px;
-            background: linear-gradient(135deg, #d4a520, #f0c040, #d4a520);
-            background-size: 200% auto;
-            color: #1a0a00;
-            font-size: 1.05rem;
-            font-weight: 900;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 8px 30px rgba(240,192,64,0.45);
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: inline-block;
-            animation: btn-gold-shine 3s linear infinite;
-        }
-        @keyframes btn-gold-shine { to { background-position: 200% center; } }
-        .btn-primary:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 14px 40px rgba(240,192,64,0.65); }
-        .btn-ghost {
-            padding: 18px 40px;
+            padding: 16px 40px;
             background: transparent;
-            color: rgba(255,255,255,0.6);
-            font-size: 1.05rem;
+            border: 2px solid #00ff46;
+            color: #00ff46;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
             font-weight: 700;
-            border: 1.5px solid rgba(255,255,255,0.2);
-            border-radius: 50px;
+            letter-spacing: 2px;
+            border-radius: 4px;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.2s;
             display: inline-block;
+            text-shadow: 0 0 10px rgba(0,255,70,0.6);
+            box-shadow: 0 0 20px rgba(0,255,70,0.15), inset 0 0 20px rgba(0,255,70,0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,255,70,0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+        .btn-primary:hover::before { transform: translateX(0); }
+        .btn-primary:hover {
+            box-shadow: 0 0 40px rgba(0,255,70,0.4), inset 0 0 30px rgba(0,255,70,0.1);
+            text-shadow: 0 0 20px rgba(0,255,70,1);
+        }
+        .btn-ghost {
+            padding: 16px 32px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.5);
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: rgba(255,255,255,0.8); }
 
-        /* 숫자 통계 */
         .hero-stats {
             display: flex;
-            justify-content: center;
             gap: 50px;
-            margin-top: 60px;
+            justify-content: center;
             flex-wrap: wrap;
         }
         .stat-item { text-align: center; }
         .stat-number {
-            font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #fff;
-            line-height: 1;
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00ff46;
+            text-shadow: 0 0 20px rgba(0,255,70,0.7);
         }
-        .stat-number span { color: #f0c040; }
-        .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.35); letter-spacing: 2px; margin-top: 6px; text-transform: uppercase; }
+        .stat-number span { font-size: 1rem; color: rgba(0,255,70,0.6); }
+        .stat-label {
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
 
-        /* 스크롤 힌트 */
         .scroll-hint {
             position: absolute;
-            bottom: 28px; left: 50%;
+            bottom: 30px;
+            left: 50%;
             transform: translateX(-50%);
-            color: rgba(255,255,255,0.2);
-            font-size: 0.7rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.65rem;
+            color: rgba(0,255,70,0.4);
             letter-spacing: 4px;
-            animation: bounce-down 2s ease-in-out infinite;
+            z-index: 5;
+            animation: scroll-fade 2s ease-in-out infinite;
         }
-        .scroll-hint::after { content: ' ▼'; }
-        @keyframes bounce-down { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(8px);} }
+        @keyframes scroll-fade { 0%,100%{opacity:0.4;} 50%{opacity:0.8;} }
 
-        /* 모바일 히어로 스토리 숨김 */
-        @media(max-width:768px){
-            .hero-story { display:none; }
-            .hero-content { padding: 60px 20px 100px; }
-        }
-
-        /* ===== 금속판 슬로건 ===== */
-        .metal-plate {
-            display: block; margin: 40px auto; width: 90%; max-width: 800px; 
-            padding: 60px 20px; border-radius: 8px;
-            background: linear-gradient(135deg, #667eea 0%, #a78bfa 20%, #764ba2 40%, #a78bfa 60%, #667eea 80%, #a78bfa 100%);
-            border: 3px solid #8b7cfa;
-            box-shadow: 0 20px 50px rgba(102,126,234,0.5);
-            position: relative; overflow: hidden; text-align: center;
-        }
-        .metal-plate::before {
-            content: ""; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 35%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 65%, rgba(255,255,255,0) 100%);
-            animation: light-sweep 3.3s infinite;
-        }
-        @keyframes light-sweep { 0% { left: -150%; } 90% { left: 150%; } 100% { left: 150%; } }
-        .wave-text { display: block; font-family: 'Noto Sans KR', sans-serif; font-size: 3.8rem; font-weight: 900; letter-spacing: -2px; color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); animation: move-up-down 3.5s ease-in-out infinite; position: relative; z-index: 2; }
-        @keyframes move-up-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .sub-copy { font-size: 1.4rem; font-weight: 800; letter-spacing: 12px; color: #1a1a24; text-transform: uppercase; margin-top: 15px; position: relative; z-index: 2; }
-
-        /* ===== 가격표 섹션 - 말풍선 포함 ===== */
-        #lineup { padding: 80px 0 40px; text-align: center; }
-        .lineup-title { font-family: 'Cinzel', serif; font-size: 2.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; letter-spacing: 5px; }
-
-        /* 떠다니는 말풍선 */
-        .balloon-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 50px;
-        }
-        .floating-balloon {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, #f0c040, #f97316);
-            color: #1a0a00;
-            font-size: 1.1rem;
-            font-weight: 900;
-            padding: 16px 32px;
-            border-radius: 40px;
-            box-shadow: 0 8px 30px rgba(240,192,64,0.4);
-            animation: balloon-float 3s ease-in-out infinite;
-            position: relative;
-        }
-        .floating-balloon::after {
-            content: '';
-            position: absolute;
-            bottom: -14px; left: 50%;
-            transform: translateX(-50%);
-            border: 8px solid transparent;
-            border-top-color: #f97316;
-        }
-        @keyframes balloon-float {
-            0%,100% { transform: translateY(0) rotate(-1deg); }
-            50% { transform: translateY(-12px) rotate(1deg); }
-        }
-        .balloon-emoji { font-size: 1.4rem; animation: spin-slow 4s linear infinite; }
-        @keyframes spin-slow { 0%,100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
-
-        /* 가격표 그리드 */
-        .lineup-grid { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; 
-            max-width: 1300px; margin: 0 auto; align-items: start; padding: 0 20px;
-            position: relative;
-        }
-
-        /* 가격표 카드 - 말풍선이 따라다니는 효과 */
-        .price-card-wrap {
-            position: relative;
-        }
-        .price-card-wrap .hover-balloon {
-            position: absolute;
-            top: -50px; left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #1a1a2e, #2a2a44);
-            border: 1px solid rgba(167,139,250,0.5);
-            color: #c084fc;
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 8px 16px;
-            border-radius: 20px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            pointer-events: none;
-            z-index: 10;
-            box-shadow: 0 4px 20px rgba(102,126,234,0.3);
-        }
-        .price-card-wrap .hover-balloon::after {
-            content: '';
-            position: absolute;
-            bottom: -8px; left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid transparent;
-            border-top-color: rgba(167,139,250,0.5);
-        }
-        .price-card-wrap:hover .hover-balloon {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-6px);
-        }
-
-        .lineup-card { background: #0f0f15; border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 15px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
-        .lineup-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
-        .lineup-grid img { width: 100%; height: auto; display: block; filter: brightness(1.05); }
-
-        /* ===== 철학 섹션 ===== */
-        .lab-section { height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 85%); text-align: center; }
-        .intro-line { font-family: 'Noto Sans KR', sans-serif; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 900; color: #444; margin-bottom: 20px; display: block; opacity: 0.8; }
-        .main-line { font-family: 'Noto Sans KR', sans-serif; font-size: clamp(1.8rem, 6vw, 4.5rem); font-weight: 900; color: #ffffff; text-shadow: 0px 0px 20px rgba(255,255,255,0.2), 2px 6px 15px rgba(0,0,0,1); display: block; margin-bottom: 50px; }
-        .shining-text { background: linear-gradient(110deg, #667eea 33%, #a78bfa 50%, #764ba2 66%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: slash-shine 3s linear infinite; }
-        @keyframes slash-shine { to { background-position: 200% center; } }
-        .signature-name { font-family: 'Great Vibes', cursive; font-size: clamp(3rem, 8vw, 4.5rem); color: var(--primary); display: block; text-shadow: 2px 5px 12px rgba(0,0,0,1); }
-        .peace-wish { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #555; letter-spacing: 10px; margin-top: 10px; }
-
+        /* ===== 혜택 폭격 섹션 ===== */
         /* ===== 혜택 폭격 섹션 ===== */
         .benefits-section {
             background: linear-gradient(180deg, #0a0a0f 0%, #0d0d18 50%, #0a0a0f 100%);
@@ -689,6 +483,8 @@
             margin: 0 4px;
         }
 
+        .lineup-card img { width: 100%; height: auto; display: block; }
+
         /* ===== 주문서 섹션 ===== */
         .offer-section { min-height: 100vh; padding: 80px 20px; display: flex; justify-content: center; align-items: flex-start; background: #e0e5ec; }
         #main-section { width: 100%; max-width: 580px; padding: 50px 45px; background: #e0e5ec; border-radius: 40px; border: 1.5px solid var(--primary); box-shadow: 20px 20px 40px #bec3c9, -20px -20px 40px #ffffff; position: relative; }
@@ -719,12 +515,63 @@
             .stat-number { font-size: 1.8rem; }
             .lineup-grid { grid-template-columns: 1fr !important; max-width: 100vw !important; gap: 0; padding: 0; }
             .lineup-card { border-radius: 0; border-left: none; border-right: none; width: 100vw; }
+            .lineup-card img { width: 100%; height: auto; display: block; }
             .price-card-wrap .hover-balloon { display: none; }
             .benefits-grid { grid-template-columns: 1fr; }
             .savings-bomb { padding: 40px 24px; }
             #main-section { padding: 40px 24px; }
             .offer-title { font-size: 28px; }
         }
+
+        /* 노트북 + 피곤한 사람 CSS 드로잉 */
+        .laptop-scene {
+            position: relative;
+            width: 120px;
+            height: 140px;
+            margin: 0 auto;
+        }
+        /* 사람 머리 - 헝클어진 머리 */
+        .lp-head {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 36px; height: 36px;
+            background: rgba(255,200,150,0.7);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255,100,100,0.3);
+        }
+        /* 헝클어진 머리카락 */
+        .lp-hair-l { position:absolute; top:-6px; left:4px; width:10px; height:14px; background:rgba(80,50,20,0.8); border-radius:50% 50% 0 50%; transform:rotate(-30deg); }
+        .lp-hair-m { position:absolute; top:-8px; left:13px; width:10px; height:16px; background:rgba(80,50,20,0.8); border-radius:50% 50% 0 50%; transform:rotate(5deg); }
+        .lp-hair-r { position:absolute; top:-5px; left:22px; width:10px; height:13px; background:rgba(80,50,20,0.8); border-radius:50% 50% 50% 0; transform:rotate(25deg); }
+        /* 다크써클 눈 */
+        .lp-eye-l { position:absolute; top:14px; left:8px; width:8px; height:5px; border-radius:0 0 50% 50%; border-bottom:2px solid rgba(50,20,80,0.9); }
+        .lp-eye-r { position:absolute; top:14px; left:20px; width:8px; height:5px; border-radius:0 0 50% 50%; border-bottom:2px solid rgba(50,20,80,0.9); }
+        .lp-dark-l { position:absolute; top:17px; left:6px; width:12px; height:5px; border-radius:50%; background:rgba(80,40,120,0.35); }
+        .lp-dark-r { position:absolute; top:17px; left:18px; width:12px; height:5px; border-radius:50%; background:rgba(80,40,120,0.35); }
+        /* 지친 입 */
+        .lp-mouth { position:absolute; top:25px; left:50%; transform:translateX(-50%); width:12px; height:5px; border-radius:50% 50% 0 0; border-top:2px solid rgba(150,100,100,0.6); }
+        /* 몸통 */
+        .lp-body { position:absolute; top:38px; left:50%; transform:translateX(-50%); width:32px; height:28px; background:rgba(60,60,80,0.6); border-radius:4px; }
+        /* 팔 - 앞으로 구부린 자세 */
+        .lp-arm-l { position:absolute; top:50px; left:14px; width:22px; height:8px; background:rgba(60,60,80,0.5); border-radius:4px; transform:rotate(15deg); }
+        .lp-arm-r { position:absolute; top:50px; left:84px; width:22px; height:8px; background:rgba(60,60,80,0.5); border-radius:4px; transform:rotate(-15deg); }
+        /* 노트북 화면 */
+        .lp-screen { position:absolute; top:64px; left:10px; width:100px; height:52px; background:rgba(20,20,40,0.85); border-radius:4px 4px 0 0; border:1px solid rgba(255,60,60,0.3); box-shadow:0 0 15px rgba(255,60,60,0.15); overflow:hidden; }
+        .lp-screen-glow { position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,50,50,0.05), rgba(100,0,200,0.08)); }
+        .lp-code-line { height:3px; border-radius:2px; margin:5px 6px 0; background:rgba(255,80,80,0.25); }
+        .lp-code-line:nth-child(2) { width:65%; background:rgba(200,100,255,0.2); }
+        .lp-code-line:nth-child(3) { width:80%; }
+        .lp-code-line:nth-child(4) { width:45%; background:rgba(200,100,255,0.2); }
+        .lp-code-line:nth-child(5) { width:70%; }
+        .lp-code-line:nth-child(6) { width:55%; background:rgba(200,100,255,0.2); }
+        /* ERROR 텍스트 */
+        .lp-error { position:absolute; bottom:4px; left:6px; font-family:'Courier New',monospace; font-size:6px; color:rgba(255,80,80,0.7); letter-spacing:0.5px; }
+        /* 노트북 받침 */
+        .lp-base { position:absolute; top:116px; left:8px; width:104px; height:8px; background:rgba(40,40,60,0.7); border-radius:0 0 4px 4px; border:1px solid rgba(255,60,60,0.2); border-top:none; }
+
+        @keyframes tired-flicker { 0%,100%{opacity:0.85;} 50%{opacity:0.7;} 75%{opacity:0.9;} }
+        .laptop-scene { animation: tired-flicker 3s ease-in-out infinite; }
     </style>
 </head>
 <body>
@@ -737,65 +584,71 @@
     </ul>
 </nav>
 
-<!-- ===== 히어로 섹션 ===== -->
+<!-- ===== 매트릭스 히어로 섹션 ===== -->
 <div id="home" class="hero-section">
-    <div class="hero-bg"></div>
-    <div class="hero-floor"></div>
-    <div class="hero-grid"></div>
+    <!-- 매트릭스 코드 비 캔버스 -->
+    <canvas id="matrix-canvas"></canvas>
 
-    <!-- 배경 스토리 실루엣 -->
-    <div class="hero-story">
-        <!-- BEFORE: 쓰러진 초보 -->
-        <div class="story-before">
-            <div class="figure-fallen">
-                <div class="head"></div>
-                <div class="body"></div>
+    <!-- 좌우 분할 패널 배경 -->
+    <div class="hero-split">
+        <div class="split-left">
+            <div class="split-label red">// WITHOUT_PROGRAM</div>
+            <div class="laptop-scene">
+                <div class="lp-head">
+                    <div class="lp-hair-l"></div>
+                    <div class="lp-hair-m"></div>
+                    <div class="lp-hair-r"></div>
+                    <div class="lp-eye-l"></div>
+                    <div class="lp-eye-r"></div>
+                    <div class="lp-dark-l"></div>
+                    <div class="lp-dark-r"></div>
+                    <div class="lp-mouth"></div>
+                </div>
+                <div class="lp-body"></div>
+                <div class="lp-arm-l"></div>
+                <div class="lp-arm-r"></div>
+                <div class="lp-screen">
+                    <div class="lp-screen-glow"></div>
+                    <div class="lp-code-line"></div>
+                    <div class="lp-code-line"></div>
+                    <div class="lp-code-line"></div>
+                    <div class="lp-code-line"></div>
+                    <div class="lp-code-line"></div>
+                    <div class="lp-code-line"></div>
+                    <div class="lp-error">ERROR: 00:04:23 AM</div>
+                </div>
+                <div class="lp-base"></div>
             </div>
-            <div class="before-label">Before</div>
+            <div class="tired-desc">
+                새벽 4시 작업 중...<br>
+                눈 밑 다크써클 한계<br>
+                머리 헝클어진 채 씨름<br>
+                외주비 또 청구됨<br>
+                <span style="color:rgba(255,60,60,0.35);">ERROR: human_overflow</span>
+            </div>
         </div>
-
-        <!-- AFTER: 트로피 든 챔피언 -->
-        <div class="story-after">
-            <!-- 방사형 빛줄기 -->
-            <div class="rays">
-                <div class="ray" style="height:130px;transform-origin:bottom center;transform:rotate(-60deg);animation-delay:0s;"></div>
-                <div class="ray" style="height:150px;transform-origin:bottom center;transform:rotate(-40deg);animation-delay:0.3s;"></div>
-                <div class="ray" style="height:120px;transform-origin:bottom center;transform:rotate(-20deg);animation-delay:0.1s;"></div>
-                <div class="ray" style="height:140px;transform-origin:bottom center;transform:rotate(0deg);animation-delay:0.5s;"></div>
-                <div class="ray" style="height:130px;transform-origin:bottom center;transform:rotate(20deg);animation-delay:0.2s;"></div>
-                <div class="ray" style="height:150px;transform-origin:bottom center;transform:rotate(40deg);animation-delay:0.4s;"></div>
-                <div class="ray" style="height:120px;transform-origin:bottom center;transform:rotate(60deg);animation-delay:0.1s;"></div>
+        <div class="split-right">
+            <div class="split-label green">// WITH_PROGRAM</div>
+            <div class="figure-free" style="font-size:3.2rem; line-height:1.3; text-align:center;">
+                🎢😆<br>
+                <span style="font-size:2rem;">🎉✨</span>
             </div>
-            <div class="figure-champion">
-                <div class="trophy"></div>
-                <div class="head"></div>
-                <div class="body"></div>
-                <div class="arm-l"></div>
-                <div class="arm-r"></div>
-                <div class="leg-l"></div>
-                <div class="leg-r"></div>
+            <div class="free-desc">
+                Ctrl + Enter 누르고<br>
+                놀이공원 청룡열차<br>
+                커피 한 잔의 여유<br>
+                무한 수정 자동 완료<br>
+                <span style="color:rgba(0,255,70,0.5);">SUCCESS: deployed ✓</span>
             </div>
-            <div class="after-label">After</div>
         </div>
     </div>
 
-    <!-- 중앙 화살표 -->
-    <div class="divider-arrow">
-        <div style="display:flex;align-items:center;">
-            <div class="arrow-line"></div>
-            <div class="arrow-tip"></div>
-        </div>
-        <div class="arrow-label">Program</div>
+    <!-- VS 중앙 구분선 -->
+    <div class="vs-divider">
+        <div class="vs-line"></div>
+        <div class="vs-badge">VS</div>
+        <div class="vs-line"></div>
     </div>
-
-    <!-- 파티클 -->
-    <div class="particle" style="left:8%;width:3px;height:3px;animation-duration:9s;animation-delay:0s;"></div>
-    <div class="particle purple" style="left:18%;width:5px;height:5px;animation-duration:12s;animation-delay:2s;"></div>
-    <div class="particle" style="left:30%;width:4px;height:4px;animation-duration:7.5s;animation-delay:1s;"></div>
-    <div class="particle purple" style="left:55%;width:3px;height:3px;animation-duration:11s;animation-delay:3s;"></div>
-    <div class="particle" style="left:70%;width:6px;height:6px;animation-duration:8s;animation-delay:0.5s;"></div>
-    <div class="particle purple" style="left:82%;width:4px;height:4px;animation-duration:10s;animation-delay:4s;"></div>
-    <div class="particle" style="left:92%;width:3px;height:3px;animation-duration:13s;animation-delay:1.5s;"></div>
 
     <!-- 메인 텍스트 -->
     <div class="hero-content">
@@ -806,18 +659,18 @@
         </div>
 
         <h1 class="hero-headline">
-            <span class="line-before">디자인 몰라도 괜찮다</span>
-            <span class="line-main">초보가 <span class="accent">챔피언</span>이 되는</span>
-            <span class="line-after">단 하나의 프로그램</span>
+            <span class="line-before">// Ctrl 하나 · Enter 하나</span>
+            <span class="line-main"><span class="accent">아는 자</span>와 모르는 자</span>
+            <span class="line-after">// 그 차이가 인생을 바꾼다</span>
         </h1>
 
         <p class="hero-sub">
-            어제까지 외주비에 치이던 당신이 — <strong>오늘부터 직접 만든다</strong><br>
-            코딩 제로 · 디자이너 제로 · 비용 제로
+            코드가 세상을 움직인다 — <strong>당신은 어느 쪽을 선택하겠는가</strong><br>
+            코딩 제로 · 디자이너 제로 · 외주비 제로
         </p>
 
         <div class="hero-cta">
-            <a href="#order" class="btn-primary">🏆 지금 챔피언 되기</a>
+            <a href="#order" class="btn-primary">&gt;_ 지금 시작하기</a>
             <a href="#lineup" class="btn-ghost">가격표 보기</a>
         </div>
 
@@ -837,7 +690,7 @@
         </div>
     </div>
 
-    <div class="scroll-hint">SCROLL</div>
+    <div class="scroll-hint">SCROLL ↓</div>
 </div>
 
 <!-- 섹션 1.5: 금속판 사명 -->
@@ -1092,4 +945,49 @@
         // 4초 후 초기화
         setTimeout(() => {
             document.getElementById('success-overlay').style.display = 'none';
-        
+            document.getElementById('product-name').value = '';
+            document.getElementById('user-contact').value = '';
+        }, 4000);
+    }
+</script>
+
+<script>
+// 매트릭스 코드 비 애니메이션
+(function() {
+    const canvas = document.getElementById('matrix-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    const chars = 'アイウエオカキクケコ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ{}[]<>/=+-*&^%$#@!';
+    const fontSize = 14;
+    let drops = [];
+    function initDrops() {
+        const columns = Math.floor(canvas.width / fontSize);
+        drops = Array(columns).fill(1).map(() => Math.random() * -50);
+    }
+    initDrops();
+    window.addEventListener('resize', initDrops);
+    function draw() {
+        ctx.fillStyle = 'rgba(0,0,0,0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const columns = Math.floor(canvas.width / fontSize);
+        for (let i = 0; i < columns && i < drops.length; i++) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            const brightness = Math.random();
+            if (brightness > 0.97) { ctx.fillStyle = '#ffffff'; ctx.shadowColor = '#00ff46'; ctx.shadowBlur = 15; }
+            else if (brightness > 0.8) { ctx.fillStyle = '#00ff46'; ctx.shadowColor = '#00ff46'; ctx.shadowBlur = 8; }
+            else { ctx.fillStyle = 'rgba(0,180,40,' + (0.3 + brightness * 0.4) + ')'; ctx.shadowBlur = 0; }
+            ctx.font = fontSize + 'px Courier New';
+            ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+            ctx.shadowBlur = 0;
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 50);
+})();
+</script>
+</body>
+</html>
